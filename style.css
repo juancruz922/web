@@ -72,7 +72,7 @@ header {
 }
 
 .carousel-images img {
-    width: 85%;
+    width: 100%;
     display: block;
     border-radius: 10px;
 }
@@ -152,7 +152,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 30px; /* Espaciado entre íconos */
+    gap: 20px; /* Espaciado entre íconos */
     padding: 0;
     flex-wrap: nowrap; /* Evita que los íconos se apilen */
     max-width: 100%; /* Se ajusta al ancho de la pantalla */
