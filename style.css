@@ -1,0 +1,203 @@
+/* Estilos Generales */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background: #f8f9fa;
+    color: #333;
+}
+
+/* Navbar */
+header {
+    background: #444; /* Color más claro */
+    height: 50px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 60px; /* Aumenté la separación entre iconos */
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.8em;
+}
+
+/* Sección Trayectoria */
+.trayectoria {
+    margin-top: 70px;
+    background: #ddd;
+    padding: 50px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.trayectoria-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 900px;
+    width: 100%;
+}
+
+.trayectoria-text {
+    width: 50%;
+    text-align: center;
+}
+
+.carousel {
+    width: 50%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.carousel-images {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.carousel-images img {
+    width: 100%;
+    display: block;
+    border-radius: 10px;
+}
+
+/* Botones del Carrusel */
+.carousel-controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+}
+
+.carousel-controls button {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    border: none;
+    font-size: 2em;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.carousel-controls button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.carousel-controls button:focus {
+    outline: none;
+}
+
+/* Sección Mis Servicios */
+#servicios {
+    background: #ffffff;
+    padding: 60px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.service-list {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    max-width: 900px;
+}
+
+.service {
+    background: #f0f0f0;
+    padding: 20px;
+    border-radius: 8px;
+    width: 250px;
+    text-align: center;
+}
+
+.service i {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+/* Sección Contacto */
+#contacto {
+    background: #222;
+    color: white;
+    padding: 50px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Sección Contacto */
+#contacto ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px; /* Espaciado entre íconos */
+    padding: 0;
+    flex-wrap: nowrap; /* Evita que los íconos se apilen */
+    max-width: 100%; /* Se ajusta al ancho de la pantalla */
+    overflow: hidden; /* Evita desbordamiento */
+}
+
+#contacto ul li {
+    display: inline;
+}
+
+#contacto ul li a {
+    color: white;
+    font-size: 2.5em;
+}
+
+/* Footer */
+footer {
+    background: #111;
+    color: white;
+    padding: 5px 0;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #contacto ul {
+        flex-direction: row; /* Mantiene los íconos en fila */
+        flex-wrap: nowrap; /* No permite que los íconos bajen de línea */
+        justify-content: center;
+    }
+
+    .trayectoria-text, .carousel {
+        width: 100%;
+    }
+
+    .service-list {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #contacto ul {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
