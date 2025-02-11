@@ -197,5 +197,9 @@ footer {
         flex-direction: column;
         align-items: center;
     }
-
+/* Mejoras en Contacto */
+#contacto ul li a:hover {
+    color: #ffcc00;
+    transition: color 0.3s ease;
+}
 }
