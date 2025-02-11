@@ -23,16 +23,16 @@ header {
 nav {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 10px;
+    justify-content: center;
+   
 }
 
 .logo {
-    height: 50px; /* Ajusta según necesites */
+    height: 100px; /* Ajusta según necesites */
     width: auto;
-    margin-right: 35px;
-    position: relative;
-    top: 10px; /* Baja la imagen */
+    position: absolute;
+    left: 0px; /* Pegado a la izquierda */
+    top: -3px; /* Baja la imagen */
 }
 
 .nav-links {
