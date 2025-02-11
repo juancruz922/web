@@ -20,6 +20,18 @@ header {
     justify-content: center;
     align-items: center;
 }
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.logo {
+    height: 50px; /* Ajusta el tamaño del logo */
+    width: auto;
+    margin-right: 20px;
+}
 
 .nav-links {
     list-style: none;
