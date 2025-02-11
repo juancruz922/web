@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", function () {
     carouselImages.insertBefore(lastClone, slides[0]);
 
     let totalSlidesWithClones = totalSlides + 2;
-
     let currentIndex = 1;
     carouselImages.style.transform = `translateX(${-currentIndex * 100}%)`;
 
@@ -22,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function changeSlide(direction, speed = "0.5s") {
+        resetAutoSlide(); // Reinicia el temporizador al tocar una flecha
         if (direction === "next") {
             currentIndex++;
         } else {
@@ -50,10 +50,17 @@ document.addEventListener("DOMContentLoaded", function () {
         changeSlide("next");
     });
 
-    // **Transición automática cada 8 segundos**
+    // **Transición automática cada 5 segundos**
     let autoSlide = setInterval(() => {
         changeSlide("next");
     }, 5000);
+
+    function resetAutoSlide() {
+        clearInterval(autoSlide);
+        autoSlide = setInterval(() => {
+            changeSlide("next");
+        }, 5000);
+    }
 
     // **Swipe en pantallas táctiles con animación más rápida**
     let startX = 0;
@@ -75,10 +82,6 @@ document.addEventListener("DOMContentLoaded", function () {
             changeSlide("next", "0.3s"); // Swipe rápido hacia adelante
         }
 
-        // Reiniciar el temporizador de auto-slide después de un swipe manual
-        clearInterval(autoSlide);
-        autoSlide = setInterval(() => {
-            changeSlide("next");
-        }, 5000);
+        resetAutoSlide(); // Reinicia el tiempo después del swipe
     });
 });
