@@ -105,6 +105,11 @@ header {
     outline: none;
 }
 
+.prev, .next {
+  -webkit-tap-highlight-color: transparent;
+}
+
+
 /* Sección Mis Servicios */
 #servicios {
     background: #ffffff;
