@@ -31,3 +31,39 @@ document.querySelector('.carousel-controls .next').addEventListener('click', () 
 setInterval(() => {
     changeSlide(currentSlide + 1);
 }, 5000);
+
+document.addEventListener("DOMContentLoaded", function () {
+    const carousel = document.querySelector(".carousel-images");
+    let index = 0;
+    const totalImages = carousel.children.length;
+    let startX = 0;
+    let endX = 0;
+
+    function updateCarousel() {
+        carousel.style.transform = `translateX(${-index * 100}%)`;
+    }
+
+    // Detectar inicio del toque
+    carousel.addEventListener("touchstart", function (e) {
+        startX = e.touches[0].clientX;
+    });
+
+    // Detectar fin del toque y calcular dirección
+    carousel.addEventListener("touchend", function (e) {
+        endX = e.changedTouches[0].clientX;
+        let difference = startX - endX;
+
+        if (difference > 50) {
+            // Deslizar a la izquierda (siguiente imagen)
+            index = (index + 1) % totalImages;
+        } else if (difference < -50) {
+            // Deslizar a la derecha (imagen anterior)
+            index = (index - 1 + totalImages) % totalImages;
+        }
+
+        updateCarousel();
+    });
+
+    updateCarousel();
+});
+
