@@ -30,7 +30,7 @@ document.querySelector('.carousel-controls .next').addEventListener('click', () 
 // Cambia la imagen automáticamente cada 5 segundos
 setInterval(() => {
     changeSlide(currentSlide + 1);
-}, 5000);
+}, 8000);
 
 document.addEventListener("DOMContentLoaded", function () {
     const carousel = document.querySelector(".carousel-images");
