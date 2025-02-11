@@ -8,31 +8,27 @@ document.addEventListener("DOMContentLoaded", function () {
     const firstClone = slides[0].cloneNode(true);
     const lastClone = slides[totalSlides - 1].cloneNode(true);
 
-    // Insertamos la última imagen clonada al inicio y la primera imagen clonada al final
     carouselImages.appendChild(firstClone);
     carouselImages.insertBefore(lastClone, slides[0]);
 
-    // Ajustamos el número total de slides contando los clones
     let totalSlidesWithClones = totalSlides + 2;
-
-    // Posicionamos el carrusel en la primera imagen real
     let currentIndex = 1;
     carouselImages.style.transform = `translateX(${-currentIndex * 100}%)`;
 
-    function updateCarousel() {
-        carouselImages.style.transition = "transform 0.5s ease-in-out";
+    function updateCarousel(speed = "0.5s") {
+        carouselImages.style.transition = `transform ${speed} ease-in-out`;
         carouselImages.style.transform = `translateX(${-currentIndex * 100}%)`;
     }
 
-    function changeSlide(direction) {
+    function changeSlide(direction, speed = "0.5s") {
+        resetAutoSlide(); // Reinicia el temporizador al tocar una flecha
         if (direction === "next") {
             currentIndex++;
         } else {
             currentIndex--;
         }
-        updateCarousel();
+        updateCarousel(speed);
 
-        // Cuando llega al final, reseteamos el índice sin transición
         setTimeout(() => {
             if (currentIndex >= totalSlidesWithClones - 1) {
                 currentIndex = 1;
@@ -43,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 carouselImages.style.transition = "none";
                 carouselImages.style.transform = `translateX(${-currentIndex * 100}%)`;
             }
-        }, 500);
+        }, parseFloat(speed) * 1000);
     }
 
     document.querySelector('.prev').addEventListener('click', () => {
@@ -54,11 +50,19 @@ document.addEventListener("DOMContentLoaded", function () {
         changeSlide("next");
     });
 
-    setInterval(() => {
+    // **Transición automática cada 5 segundos**
+    let autoSlide = setInterval(() => {
         changeSlide("next");
-    }, 8000);
+    }, 5000);
 
-    // **Agregar Swipe en Pantallas Táctiles**
+    function resetAutoSlide() {
+        clearInterval(autoSlide);
+        autoSlide = setInterval(() => {
+            changeSlide("next");
+        }, 5000);
+    }
+
+    // **Swipe en pantallas táctiles con animación más rápida**
     let startX = 0;
     let endX = 0;
 
@@ -73,9 +77,11 @@ document.addEventListener("DOMContentLoaded", function () {
     carouselImages.addEventListener("touchend", () => {
         let deltaX = endX - startX;
         if (deltaX > 50) {
-            changeSlide("prev"); // Deslizar a la izquierda (retrocede)
+            changeSlide("prev", "0.3s"); // Swipe rápido hacia atrás
         } else if (deltaX < -50) {
-            changeSlide("next"); // Deslizar a la derecha (avanza)
+            changeSlide("next", "0.3s"); // Swipe rápido hacia adelante
         }
+
+        resetAutoSlide(); // Reinicia el tiempo después del swipe
     });
 });
