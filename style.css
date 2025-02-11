@@ -1,224 +1,84 @@
-/* Estilos Generales */
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    background: #f8f9fa;
-    color: #333;
-}
+document.addEventListener("DOMContentLoaded", function () {
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.carousel-images img');
+    const totalSlides = slides.length;
+    const carouselImages = document.querySelector('.carousel-images');
 
-/* Navbar */
-header {
-    background: #444; /* Color más claro */
-    height: 70px;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-nav {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-   
-}
+    // Clonamos la primera y la última imagen para lograr el efecto de bucle
+    const firstClone = slides[0].cloneNode(true);
+    const lastClone = slides[totalSlides - 1].cloneNode(true);
 
-.logo {
-    height: 95px; /* Ajusta según necesites */
-    width: auto;
-    position: absolute;
-    left: -2px; /* Pegado a la izquierda */
-    top: -3px; /* Baja la imagen */
-}
+    carouselImages.appendChild(firstClone);
+    carouselImages.insertBefore(lastClone, slides[0]);
 
-.nav-links {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    gap: 60px; /* Aumenté la separación entre iconos */
-}
+    let totalSlidesWithClones = totalSlides + 2;
 
-.nav-links li a {
-    text-decoration: none;
-    color: white;
-    font-size: 1.8em;
-}
+    let currentIndex = 1;
+    carouselImages.style.transform = `translateX(${-currentIndex * 100}%)`;
 
-/* Sección Trayectoria */
-.trayectoria {
-    margin-top: 70px;
-    background: #ddd;
-    padding: 50px 20px;
-    display: flex;
-    justify-content: center;
-}
-
-.trayectoria-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    max-width: 900px;
-    width: 100%;
-}
-
-.trayectoria-text {
-    width: 50%;
-    text-align: center;
-}
-
-.carousel {
-    width: 50%;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    overflow: hidden;
-    border-radius: 10px;
-}
-
-.carousel-images {
-    display: flex;
-    transition: transform 0.5s ease;
-}
-
-.carousel-images img {
-    width: 100%;
-    display: block;
-    border-radius: 10px;
-}
-
-/* Botones del Carrusel */
-.carousel-controls {
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    transform: translateY(-50%);
-}
-
-.carousel-controls button {
-    background: none; /* Quita el fondo */
-    color: #fff; /* Mantiene el color del icono */
-    border: none;
-    font-size: 2em;
-    padding: 10px;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-}
-
-.carousel-controls button:hover {
-    transform: scale(1.5); /* Efecto de agrandado al pasar el mouse */
-}
-
-.carousel-controls button:focus {
-    outline: none;
-}
-
-a, .prev, .next {
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-}
-
-
-
-
-/* Sección Mis Servicios */
-#servicios {
-    background: #ffffff;
-    padding: 60px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.service-list {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-    max-width: 900px;
-}
-
-.service {
-    background: #f0f0f0;
-    padding: 20px;
-    border-radius: 8px;
-    width: 250px;
-    text-align: center;
-}
-
-.service i {
-    font-size: 30px;
-    margin-bottom: 10px;
-}
-
-/* Sección Contacto */
-#contacto {
-    background: #222;
-    color: white;
-    padding: 50px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* Sección Contacto */
-#contacto ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px; /* Espaciado entre íconos */
-    padding: 0;
-    flex-wrap: nowrap; /* Evita que los íconos se apilen */
-    max-width: 100%; /* Se ajusta al ancho de la pantalla */
-    overflow: hidden; /* Evita desbordamiento */
-}
-
-#contacto ul li {
-    display: inline;
-}
-
-#contacto ul li a {
-    color: white;
-    font-size: 2.6em;
-}
-
-/* Footer */
-footer {
-    background: #111;
-    color: white;
-    padding: 5px 0;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    #contacto ul {
-        flex-direction: row; /* Mantiene los íconos en línea */
-        flex-wrap: wrap; /* Permite que los íconos se ajusten si la pantalla es demasiado pequeña */
-        justify-content: center;
-        gap: 50px; /* Ajusta el espacio entre ellos */
+    function updateCarousel(speed = "0.5s") {
+        carouselImages.style.transition = `transform ${speed} ease-in-out`;
+        carouselImages.style.transform = `translateX(${-currentIndex * 100}%)`;
     }
 
+    function changeSlide(direction, speed = "0.5s") {
+        if (direction === "next") {
+            currentIndex++;
+        } else {
+            currentIndex--;
+        }
+        updateCarousel(speed);
 
-
-    .trayectoria-text, .carousel {
-        width: 80%;
+        setTimeout(() => {
+            if (currentIndex >= totalSlidesWithClones - 1) {
+                currentIndex = 1;
+                carouselImages.style.transition = "none";
+                carouselImages.style.transform = `translateX(${-currentIndex * 100}%)`;
+            } else if (currentIndex <= 0) {
+                currentIndex = totalSlides;
+                carouselImages.style.transition = "none";
+                carouselImages.style.transform = `translateX(${-currentIndex * 100}%)`;
+            }
+        }, parseFloat(speed) * 1000);
     }
 
-    .service-list {
-        flex-direction: column;
-        align-items: center;
-    }
+    document.querySelector('.prev').addEventListener('click', () => {
+        changeSlide("prev");
+    });
 
+    document.querySelector('.next').addEventListener('click', () => {
+        changeSlide("next");
+    });
 
-}
+    // **Transición automática cada 8 segundos**
+    let autoSlide = setInterval(() => {
+        changeSlide("next");
+    }, 5000);
+
+    // **Swipe en pantallas táctiles con animación más rápida**
+    let startX = 0;
+    let endX = 0;
+
+    carouselImages.addEventListener("touchstart", (e) => {
+        startX = e.touches[0].clientX;
+    });
+
+    carouselImages.addEventListener("touchmove", (e) => {
+        endX = e.touches[0].clientX;
+    });
+
+    carouselImages.addEventListener("touchend", () => {
+        let deltaX = endX - startX;
+        if (deltaX > 50) {
+            changeSlide("prev", "0.3s"); // Swipe rápido hacia atrás
+        } else if (deltaX < -50) {
+            changeSlide("next", "0.3s"); // Swipe rápido hacia adelante
+        }
+
+        // Reiniciar el temporizador de auto-slide después de un swipe manual
+        clearInterval(autoSlide);
+        autoSlide = setInterval(() => {
+            changeSlide("next");
+        }, 5000);
+    });
+});
