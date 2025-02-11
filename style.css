@@ -88,18 +88,17 @@ header {
 }
 
 .carousel-controls button {
-    background-color: rgba(0, 0, 0, 0.6);
-    color: #fff;
+    background: none; /* Quita el fondo */
+    color: #fff; /* Mantiene el color del icono */
     border: none;
     font-size: 2em;
     padding: 10px;
-    border-radius: 50%;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: transform 0.2s ease;
 }
 
 .carousel-controls button:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+    transform: scale(1.5); /* Efecto de agrandado al pasar el mouse */
 }
 
 .carousel-controls button:focus {
@@ -165,7 +164,7 @@ header {
 
 #contacto ul li a {
     color: white;
-    font-size: 2.5em;
+    font-size: 2.6em;
 }
 
 /* Footer */
@@ -182,13 +181,16 @@ footer {
 /* Responsive */
 @media (max-width: 768px) {
     #contacto ul {
-        flex-direction: row; /* Mantiene los íconos en fila */
-        flex-wrap: nowrap; /* No permite que los íconos bajen de línea */
+        flex-direction: row; /* Mantiene los íconos en línea */
+        flex-wrap: wrap; /* Permite que los íconos se ajusten si la pantalla es demasiado pequeña */
         justify-content: center;
+        gap: 50px; /* Ajusta el espacio entre ellos */
     }
 
+
+
     .trayectoria-text, .carousel {
-        width: 100%;
+        width: 80%;
     }
 
     .service-list {
@@ -196,8 +198,4 @@ footer {
         align-items: center;
     }
 
-    #contacto ul {
-        flex-direction: column;
-        gap: 20px;
-    }
 }
