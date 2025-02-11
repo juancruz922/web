@@ -28,9 +28,11 @@ nav {
 }
 
 .logo {
-    height: 50px; /* Ajusta el tamaño del logo */
+    height: 50px; /* Ajusta según necesites */
     width: auto;
-    margin-right: 20px;
+    margin-right: 35px;
+    position: relative;
+    top: 10px; /* Baja la imagen */
 }
 
 .nav-links {
