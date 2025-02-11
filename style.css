@@ -31,7 +31,7 @@ nav {
     height: 95px; /* Ajusta según necesites */
     width: auto;
     position: absolute;
-    left: 0px; /* Pegado a la izquierda */
+    left: -2px; /* Pegado a la izquierda */
     top: -3px; /* Baja la imagen */
 }
 
