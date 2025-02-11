@@ -105,9 +105,11 @@ header {
     outline: none;
 }
 
-.prev, .next, .navbar a {
+a, .prev, .next {
   -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
+
 
 
 
