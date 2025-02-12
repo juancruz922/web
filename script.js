@@ -1,36 +1,54 @@
 document.addEventListener("DOMContentLoaded", function () {
-    let currentIndex = 0;
+    let currentSlide = 0;
     const slides = document.querySelectorAll('.carousel-images img');
-    const totalSlides = slides.length;
     const carouselImages = document.querySelector('.carousel-images');
 
-    // Función para actualizar el carrusel
-    function updateCarousel() {
+    // Clonamos la primera y la última imagen para lograr el efecto de bucle
+    const firstClone = slides[0].cloneNode(true);
+    const lastClone = slides[slides.length - 1].cloneNode(true);
+
+    // Añadimos los clones al principio y al final del carrusel
+    carouselImages.appendChild(firstClone);
+    carouselImages.insertBefore(lastClone, slides[0]);
+
+    // Actualizamos el total de imágenes después de los clones
+    const updatedSlides = document.querySelectorAll('.carousel-images img');
+    let totalSlides = updatedSlides.length;
+
+    let totalSlidesWithClones = totalSlides;
+    let currentIndex = 1;
+
+    // Establecemos la posición inicial del carrusel
+    carouselImages.style.transform = `translateX(${-currentIndex * 100}%)`;
+
+    function updateCarousel(speed = "0.5s") {
+        carouselImages.style.transition = `transform ${speed} ease-in-out`;
         carouselImages.style.transform = `translateX(${-currentIndex * 100}%)`;
     }
 
-    // Función para cambiar la imagen
-    function changeSlide(direction) {
+    function changeSlide(direction, speed = "0.5s") {
+        resetAutoSlide(); // Reinicia el temporizador al tocar una flecha
         if (direction === "next") {
             currentIndex++;
-        } else if (direction === "prev") {
+        } else {
             currentIndex--;
         }
+        updateCarousel(speed);
 
-        // Si llegamos al final, regresamos al principio
-        if (currentIndex >= totalSlides) {
-            currentIndex = 0;
-        }
-
-        // Si estamos al principio, volvemos al final
-        if (currentIndex < 0) {
-            currentIndex = totalSlides - 1;
-        }
-
-        updateCarousel();
+        setTimeout(() => {
+            // Si llegamos al final de los clones, regresamos al inicio
+            if (currentIndex >= totalSlidesWithClones - 1) {
+                currentIndex = 1; // Volver al primer índice del carrusel
+                carouselImages.style.transition = "none"; // Sin transición para evitar parpadeo
+                carouselImages.style.transform = `translateX(${-currentIndex * 100}%)`;
+            } else if (currentIndex <= 0) {
+                currentIndex = totalSlides - 2; // Ajustamos al penúltimo índice antes de los clones
+                carouselImages.style.transition = "none"; // Sin transición para evitar parpadeo
+                carouselImages.style.transform = `translateX(${-currentIndex * 100}%)`;
+            }
+        }, parseFloat(speed) * 1000);
     }
 
-    // Funciones para los botones de navegación
     document.querySelector('.prev').addEventListener('click', () => {
         changeSlide("prev");
     });
@@ -44,7 +62,6 @@ document.addEventListener("DOMContentLoaded", function () {
         changeSlide("next");
     }, 5000);
 
-    // Reinicia el temporizador cuando el usuario interactúa con el carrusel
     function resetAutoSlide() {
         clearInterval(autoSlide);
         autoSlide = setInterval(() => {
@@ -67,9 +84,9 @@ document.addEventListener("DOMContentLoaded", function () {
     carouselImages.addEventListener("touchend", () => {
         let deltaX = endX - startX;
         if (deltaX > 50) {
-            changeSlide("prev"); // Swipe rápido hacia atrás
+            changeSlide("prev", "0.3s"); // Swipe rápido hacia atrás
         } else if (deltaX < -50) {
-            changeSlide("next"); // Swipe rápido hacia adelante
+            changeSlide("next", "0.3s"); // Swipe rápido hacia adelante
         }
 
         resetAutoSlide(); // Reinicia el tiempo después del swipe
