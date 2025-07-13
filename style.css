@@ -7,6 +7,13 @@ body {
     background: #f4f6f6; /* Fondo claro para contraste */
      color: #333;
 }
+.trayectoria-text h2,
+.trayectoria-text h4 {
+    color: #000;
+}
+#servicios > h2 {
+    color: #000;
+}
 
 /* Navbar */
 header {
